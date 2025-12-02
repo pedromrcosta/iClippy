@@ -1,5 +1,6 @@
 import AppKit
 import Carbon
+import Foundation
 
 /// Manages global hotkey registration (configurable via settings)
 class HotKeyManager {
