@@ -14,17 +14,25 @@ class SettingsManager {
     
     // Default values
     private enum Defaults {
-        static let hotKeyCode: UInt32 = 9 // 'V' key
-        static let hotKeyModifiers: UInt32 = 0x0800 // optionKey (0x0800 in hex)
+        static let vKeyCode: UInt32 = 9 // 'V' key
+        static let optionKeyModifier: UInt32 = 0x0800 // optionKey modifier
+    }
+    
+    // Modifier key masks (Carbon API values)
+    private enum ModifierMasks {
+        static let cmdKey: UInt32 = 0x0100
+        static let shiftKey: UInt32 = 0x0200
+        static let optionKey: UInt32 = 0x0800
+        static let controlKey: UInt32 = 0x1000
     }
     
     private init() {}
     
-    /// Get the current hotkey code (default: 9 for 'V')
+    /// Get the current hotkey code (default: 'V' key)
     var hotKeyCode: UInt32 {
         get {
             let value = defaults.object(forKey: Keys.hotKeyCode) as? UInt32
-            return value ?? Defaults.hotKeyCode
+            return value ?? Defaults.vKeyCode
         }
         set {
             print("[DEBUG] Settings: Changing hotkey code to \(newValue)")
@@ -32,11 +40,11 @@ class SettingsManager {
         }
     }
     
-    /// Get the current hotkey modifiers (default: optionKey)
+    /// Get the current hotkey modifiers (default: Option key)
     var hotKeyModifiers: UInt32 {
         get {
             let value = defaults.object(forKey: Keys.hotKeyModifiers) as? UInt32
-            return value ?? Defaults.hotKeyModifiers
+            return value ?? Defaults.optionKeyModifier
         }
         set {
             print("[DEBUG] Settings: Changing hotkey modifiers to \(newValue)")
@@ -56,10 +64,10 @@ class SettingsManager {
         var modifierStrings: [String] = []
         
         let mods = hotKeyModifiers
-        if mods & 0x0100 != 0 { modifierStrings.append("⌘") } // cmdKey
-        if mods & 0x0200 != 0 { modifierStrings.append("⇧") } // shiftKey
-        if mods & 0x0800 != 0 { modifierStrings.append("⌥") } // optionKey
-        if mods & 0x1000 != 0 { modifierStrings.append("⌃") } // controlKey
+        if mods & ModifierMasks.cmdKey != 0 { modifierStrings.append("⌘") }
+        if mods & ModifierMasks.shiftKey != 0 { modifierStrings.append("⇧") }
+        if mods & ModifierMasks.optionKey != 0 { modifierStrings.append("⌥") }
+        if mods & ModifierMasks.controlKey != 0 { modifierStrings.append("⌃") }
         
         let keyChar = getKeyCharacter(for: hotKeyCode)
         return modifierStrings.joined() + keyChar

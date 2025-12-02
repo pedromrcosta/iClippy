@@ -7,6 +7,7 @@ class SettingsViewModel: ObservableObject {
     private let settingsManager = SettingsManager.shared
     private let dbManager: DBManager
     private var onShortcutChanged: (() -> Void)?
+    var onClose: (() -> Void)?
     
     init(dbManager: DBManager, onShortcutChanged: (() -> Void)? = nil) {
         self.dbManager = dbManager
@@ -30,7 +31,6 @@ class SettingsViewModel: ObservableObject {
 /// SwiftUI view for application settings
 struct SettingsView: View {
     @ObservedObject var viewModel: SettingsViewModel
-    @Environment(\.dismiss) private var dismiss
     @State private var showingClearConfirmation = false
     
     var body: some View {
@@ -98,7 +98,7 @@ struct SettingsView: View {
             
             // Close button
             Button("Close") {
-                dismiss()
+                viewModel.onClose?()
             }
             .buttonStyle(.borderedProminent)
             .padding(.bottom)

@@ -83,7 +83,7 @@ class StatusBarManager {
         
         // Close existing settings window if open
         if let window = settingsWindow, window.isVisible {
-            window.orderOut(nil)
+            window.close()
             settingsWindow = nil
             return
         }
@@ -92,6 +92,12 @@ class StatusBarManager {
         let viewModel = SettingsViewModel(dbManager: dbManager) { [weak self] in
             print("[DEBUG] Settings: Shortcut changed, notifying delegate")
             self?.onShortcutChanged?()
+        }
+        
+        // Set up close callback
+        viewModel.onClose = { [weak self] in
+            self?.settingsWindow?.close()
+            self?.settingsWindow = nil
         }
         
         let settingsView = SettingsView(viewModel: viewModel)
