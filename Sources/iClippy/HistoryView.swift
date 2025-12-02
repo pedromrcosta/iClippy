@@ -83,9 +83,9 @@ struct HistoryView: View {
                         }
                     }
                     .listStyle(.plain)
-                    .onChange(of: viewModel.searchQuery) { _ in
-                        // Scroll to top when search query changes
-                        if let firstEntry = viewModel.entries.first {
+                    .onChange(of: viewModel.entries) { newEntries in
+                        // Scroll to top when entries change (after search results are loaded)
+                        if let firstEntry = newEntries.first {
                             withAnimation {
                                 proxy.scrollTo(firstEntry.id, anchor: .top)
                             }
