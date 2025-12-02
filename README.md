@@ -6,7 +6,10 @@ A lightweight macOS clipboard history manager that records text clipboard items 
 
 - 📋 **Text-Only Recording**: Automatically captures text clipboard items (ignores images, files, etc.)
 - 🔍 **Searchable History**: Search through your clipboard history with a simple search interface
-- ⚡ **Global Hotkey**: Press `Option+V` (⌥V) anywhere to open the clipboard history window
+- ⚡ **Global Hotkey**: Press `Option+V` (⌥V) anywhere to open the clipboard history window (customizable)
+- 🎯 **Menu Bar Access**: Convenient menu bar icon for quick access to history and settings
+- ⚙️ **Customizable Shortcut**: Configure your preferred keyboard shortcut in settings
+- 🗑️ **Clear History**: Remove all clipboard entries with one click
 - 🚫 **No Duplicates**: Each unique text is stored only once
 - 💾 **Portable Database**: SQLite database stored in a standard location for easy backup and migration
 - 🔒 **Privacy-First**: All data stays local, no analytics or telemetry
@@ -52,10 +55,14 @@ swift build -c release
 ## Usage
 
 1. **Start the app**: Launch iClippy - it runs in the background monitoring your clipboard
-2. **Copy text**: Copy any text as usual (⌘C) - iClippy automatically records it
-3. **View history**: Press `Option+V` (⌥V) to open the history window
-4. **Search**: Type in the search field to filter entries
-5. **Restore**: Click any entry to copy it back to your clipboard
+2. **Menu bar icon**: Look for the clipboard icon (📋) in your menu bar
+3. **Copy text**: Copy any text as usual (⌘C) - iClippy automatically records it
+4. **View history**: Press `Option+V` (⌥V) or click the menu bar icon and select "Show Clipboard History"
+5. **Search**: Type in the search field to filter entries
+6. **Restore**: Click any entry to copy it back to your clipboard
+7. **Settings**: Click the menu bar icon and select "Settings..." to:
+   - View and customize your keyboard shortcut
+   - Clear your clipboard history
 
 ## Database Location
 
@@ -80,14 +87,19 @@ The tests cover:
 - Whitespace trimming
 - Search functionality
 - Limit and ordering
+- Clearing history
+- Settings persistence
 
 ## Architecture
 
-- **DBManager**: SQLite database operations (add, fetch, search)
+- **DBManager**: SQLite database operations (add, fetch, search, clearAll)
 - **ClipboardMonitor**: Polls NSPasteboard for text changes
-- **HotKeyManager**: Registers global Option+V hotkey using Carbon API
+- **HotKeyManager**: Registers configurable global hotkey using Carbon API
+- **StatusBarManager**: Manages menu bar icon and menu items
+- **SettingsManager**: Persists user preferences in UserDefaults
 - **AppDelegate**: Wires components and manages the history window
 - **HistoryView**: SwiftUI interface for displaying and searching history
+- **SettingsView**: SwiftUI interface for configuring preferences
 
 ## Database Schema
 
