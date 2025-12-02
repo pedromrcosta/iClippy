@@ -124,6 +124,22 @@ class DBManager {
         return entries
     }
     
+    /// Clear all clipboard history entries from the database
+    func clearAll() {
+        print("[DEBUG] Clearing all clipboard history")
+        let deleteSQL = "DELETE FROM entries;"
+        var deleteStatement: OpaquePointer?
+        
+        if sqlite3_prepare_v2(db, deleteSQL, -1, &deleteStatement, nil) == SQLITE_OK {
+            if sqlite3_step(deleteStatement) == SQLITE_DONE {
+                print("[DEBUG] Successfully cleared all entries")
+            } else {
+                print("[DEBUG] Error clearing entries")
+            }
+        }
+        sqlite3_finalize(deleteStatement)
+    }
+    
     deinit {
         sqlite3_close(db)
     }

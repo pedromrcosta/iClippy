@@ -1,20 +1,24 @@
 import AppKit
 import Carbon
 
-/// Manages global hotkey registration (Option+V)
+/// Manages global hotkey registration (configurable via settings)
 class HotKeyManager {
     private var hotKeyRef: EventHotKeyRef?
     private var eventHandler: EventHandlerRef?
+    private let settingsManager = SettingsManager.shared
     
     static let showHistoryNotification = Notification.Name("ShowHistoryWindow")
     
     func registerHotKey() {
+        // Unregister existing hotkey if any
+        unregisterHotKey()
+        
         var gMyHotKeyID = EventHotKeyID()
         // Using FourCC for "clip"
         gMyHotKeyID.signature = 0x636C6970 // "clip" in ASCII hex
         gMyHotKeyID.id = 1
         
-        // Option+V: keyCode 9 is 'V', optionKey modifier
+        // Set up event handler
         var eventType = EventTypeSpec()
         eventType.eventClass = OSType(kEventClassKeyboard)
         eventType.eventKind = OSType(kEventHotKeyPressed)
@@ -26,9 +30,11 @@ class HotKeyManager {
         
         InstallEventHandler(GetApplicationEventTarget(), callback, 1, &eventType, nil, &eventHandler)
         
-        let keyCode: UInt32 = 9 // 'V' key
-        let modifiers: UInt32 = UInt32(optionKey)
+        // Get hotkey configuration from settings
+        let keyCode = settingsManager.hotKeyCode
+        let modifiers = settingsManager.hotKeyModifiers
         
+        print("[DEBUG] Registering hotkey with code: \(keyCode), modifiers: \(modifiers)")
         RegisterEventHotKey(keyCode, modifiers, gMyHotKeyID, GetApplicationEventTarget(), 0, &hotKeyRef)
     }
     

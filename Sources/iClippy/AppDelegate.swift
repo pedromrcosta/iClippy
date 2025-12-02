@@ -6,6 +6,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var dbManager: DBManager!
     private var clipboardMonitor: ClipboardMonitor!
     private var hotKeyManager: HotKeyManager!
+    private var statusBarManager: StatusBarManager!
     private var historyPanel: NSPanel?
     
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -14,10 +15,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         clipboardMonitor = ClipboardMonitor(dbManager: dbManager)
         hotKeyManager = HotKeyManager()
         
+        // Initialize status bar with callbacks
+        statusBarManager = StatusBarManager(
+            dbManager: dbManager,
+            onShowHistory: { [weak self] in
+                self?.toggleHistoryWindow()
+            },
+            onShortcutChanged: { [weak self] in
+                self?.hotKeyManager.registerHotKey()
+            }
+        )
+        statusBarManager.setupStatusBar()
+        
         // Start monitoring clipboard
         clipboardMonitor.start()
         
-        // Register global hotkey (Option+V)
+        // Register global hotkey (configurable via settings)
         hotKeyManager.registerHotKey()
         
         // Listen for hotkey notification
@@ -28,14 +41,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             object: nil
         )
         
+        let settingsManager = SettingsManager.shared
         print("iClippy started!")
         print("Database location: \(dbManager.databasePath())")
-        print("Press Option+V to show clipboard history")
+        print("Current hotkey: \(settingsManager.getHotKeyDescription())")
+        print("Status bar icon added - click to access settings")
     }
     
     func applicationWillTerminate(_ notification: Notification) {
         clipboardMonitor.stop()
         hotKeyManager.unregisterHotKey()
+        statusBarManager.removeStatusBar()
     }
     
     @objc private func toggleHistoryWindow() {
