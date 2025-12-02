@@ -144,4 +144,48 @@ final class DBManagerTests: XCTestCase {
         XCTAssertEqual(entries[1].text, "Second")
         XCTAssertEqual(entries[2].text, "First")
     }
+    
+    func testClearAll() {
+        // Add some entries
+        dbManager.add(text: "Entry 1")
+        dbManager.add(text: "Entry 2")
+        dbManager.add(text: "Entry 3")
+        
+        // Verify entries were added
+        var entries = dbManager.fetchAll()
+        XCTAssertEqual(entries.count, 3)
+        
+        // Clear all entries
+        dbManager.clearAll()
+        
+        // Verify all entries are gone
+        entries = dbManager.fetchAll()
+        XCTAssertEqual(entries.count, 0)
+    }
+    
+    func testClearAllEmptyDatabase() {
+        // Test clearing an already empty database doesn't cause issues
+        dbManager.clearAll()
+        
+        let entries = dbManager.fetchAll()
+        XCTAssertEqual(entries.count, 0)
+    }
+    
+    func testAddAfterClearAll() {
+        // Add entries, clear them, then add new ones
+        dbManager.add(text: "Old Entry 1")
+        dbManager.add(text: "Old Entry 2")
+        
+        dbManager.clearAll()
+        
+        dbManager.add(text: "New Entry 1")
+        dbManager.add(text: "New Entry 2")
+        
+        let entries = dbManager.fetchAll()
+        XCTAssertEqual(entries.count, 2)
+        XCTAssertTrue(entries.contains { $0.text == "New Entry 1" })
+        XCTAssertTrue(entries.contains { $0.text == "New Entry 2" })
+        XCTAssertFalse(entries.contains { $0.text == "Old Entry 1" })
+        XCTAssertFalse(entries.contains { $0.text == "Old Entry 2" })
+    }
 }

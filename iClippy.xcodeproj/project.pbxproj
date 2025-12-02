@@ -14,6 +14,10 @@
 		AA0000010000000000000005 /* HotKeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000005 /* HotKeyManager.swift */; };
 		AA0000010000000000000006 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000006 /* HistoryView.swift */; };
 		AA0000010000000000000007 /* DBManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000007 /* DBManagerTests.swift */; };
+		AA0000010000000000000008 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000009 /* SettingsManager.swift */; };
+		AA0000010000000000000009 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000A /* SettingsView.swift */; };
+		AA000001000000000000000A /* StatusBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000B /* StatusBarManager.swift */; };
+		AA000001000000000000000B /* SettingsManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000C /* SettingsManagerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +31,10 @@
 		BB0000010000000000000008 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CC0000010000000000000001 /* iClippy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iClippy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC0000010000000000000002 /* iClippyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iClippyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB0000010000000000000009 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		BB000001000000000000000A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BB000001000000000000000B /* StatusBarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarManager.swift; sourceTree = "<group>"; };
+		BB000001000000000000000C /* SettingsManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManagerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +98,9 @@
 				BB0000010000000000000004 /* ClipboardMonitor.swift */,
 				BB0000010000000000000005 /* HotKeyManager.swift */,
 				BB0000010000000000000006 /* HistoryView.swift */,
+				BB0000010000000000000009 /* SettingsManager.swift */,
+				BB000001000000000000000A /* SettingsView.swift */,
+				BB000001000000000000000B /* StatusBarManager.swift */,
 				BB0000010000000000000008 /* Info.plist */,
 			);
 			path = iClippy;
@@ -99,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				BB0000010000000000000007 /* DBManagerTests.swift */,
+				BB000001000000000000000C /* SettingsManagerTests.swift */,
 			);
 			path = iClippyTests;
 			sourceTree = "<group>";
@@ -198,6 +210,9 @@
 				AA0000010000000000000004 /* ClipboardMonitor.swift in Sources */,
 				AA0000010000000000000005 /* HotKeyManager.swift in Sources */,
 				AA0000010000000000000006 /* HistoryView.swift in Sources */,
+				AA0000010000000000000008 /* SettingsManager.swift in Sources */,
+				AA0000010000000000000009 /* SettingsView.swift in Sources */,
+				AA000001000000000000000A /* StatusBarManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA0000010000000000000007 /* DBManagerTests.swift in Sources */,
+				AA000001000000000000000B /* SettingsManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
