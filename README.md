@@ -19,6 +19,24 @@ A lightweight macOS clipboard history manager that records text clipboard items 
 
 ### Build from Source
 
+#### Option 1: Using Xcode (Recommended)
+
+```bash
+# Clone the repository
+git clone https://github.com/pedromrcosta/iClippyV2.git
+cd iClippyV2
+
+# Open the Xcode project
+open Clippy.xcodeproj
+```
+
+In Xcode:
+1. Select the "Clippy" scheme
+2. Press `⌘B` to build or `⌘R` to run
+3. The app will appear in the menu bar when running
+
+#### Option 2: Using Swift Package Manager (Command Line)
+
 ```bash
 # Clone the repository
 git clone https://github.com/pedromrcosta/iClippyV2.git
