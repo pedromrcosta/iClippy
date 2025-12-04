@@ -3,6 +3,8 @@ import SwiftUI
 
 /// Application delegate that manages the clipboard monitor, hotkey, and history window
 class AppDelegate: NSObject, NSApplicationDelegate {
+    private static let historyPanelIdentifier = "com.iclippy.macos.historyPanel"
+    
     private var dbManager: DBManager!
     private var clipboardMonitor: ClipboardMonitor!
     private var hotKeyManager: HotKeyManager!
@@ -85,6 +87,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panel.contentView = hostingView
         panel.isFloatingPanel = true
         panel.level = .floating
+        
+        // Set window identifiers to fix "Cannot index window tabs" warning
+        panel.tabbingMode = .disallowed
+        panel.tabbingIdentifier = Self.historyPanelIdentifier
+        panel.identifier = NSUserInterfaceItemIdentifier(Self.historyPanelIdentifier)
+        panel.frameAutosaveName = "iClippyHistoryPanelFrame"
+        
         panel.center()
         panel.makeKeyAndOrderFront(nil)
         
