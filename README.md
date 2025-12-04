@@ -26,8 +26,8 @@ A lightweight macOS clipboard history manager that records text clipboard items 
 
 ```bash
 # Clone the repository
-git clone https://github.com/pedromrcosta/iClippyV2.git
-cd iClippyV2
+git clone https://github.com/pedromrcosta/iClippy.git
+cd iClippy
 
 # Open the Xcode project
 open iClippy.xcodeproj
@@ -42,8 +42,8 @@ In Xcode:
 
 ```bash
 # Clone the repository
-git clone https://github.com/pedromrcosta/iClippyV2.git
-cd iClippyV2
+git clone https://github.com/pedromrcosta/iClippy.git
+cd iClippy
 
 # Build the app
 swift build -c release
